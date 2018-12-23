@@ -6,13 +6,24 @@ import * as serviceWorker from "./serviceWorker";
 
 import { createStore } from "redux";
 
-function reducer() {
+function reducer(state, action) {
+  console.log(action);
+
   return "Store";
 }
 
 const store = createStore(reducer);
 
 console.log(store.getState());
+
+const action = {
+  type: "changeState",
+  payload: {
+    newState: "New state"
+  }
+};
+
+store.dispatch(action);
 
 ReactDOM.render(<App />, document.getElementById("root"));
 
