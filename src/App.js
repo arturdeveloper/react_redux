@@ -1,8 +1,15 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from "react";
+import logo from "./logo.svg";
+import "./App.css";
+
+import { connect } from "react-redux";
+import { updateUser } from "./actions/user_actions";
 
 class App extends Component {
+  onUpdateUser = event => {
+    this.props.onUpdateUser(event.target.value);
+  };
+
   render() {
     return (
       <div className="App">
@@ -20,9 +27,23 @@ class App extends Component {
             Learn React
           </a>
         </header>
+        <input onChange={this.onUpdateUser} />
+        {this.props.user}
       </div>
     );
   }
 }
 
-export default App;
+const mapStateToProps = state => ({
+  products: state.products,
+  user: state.user
+});
+
+const mapActionsToProps = {
+  onUpdateUser: updateUser
+};
+
+export default connect(
+  mapStateToProps,
+  mapActionsToProps
+)(App);
